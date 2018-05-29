@@ -9,4 +9,7 @@ Vagrant.configure("2") do |config|
   config.vm.box = "mwrock/Windows2016"
 
   config.vm.provision "shell", path: 'provision.ps1'
+  # Have to run a second provisioning to set puppet config value
+  # puppet isn't in path in above script and refreshenv not working
+  config.vm.provision "shell", inline: 'puppet config set --section agent masterport 32771'
 end
